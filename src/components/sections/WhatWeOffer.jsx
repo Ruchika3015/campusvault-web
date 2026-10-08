@@ -177,16 +177,16 @@ export function WhatWeOffer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
             <a
               href="#live-gigs"
-              className="w-full md:w-auto text-center px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow transition-all"
+              className="w-full sm:w-auto text-center px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow transition-all"
             >
               BROWSE LIVE GIGS
             </a>
             <Link
               to="/signup"
-              className="w-full md:w-auto text-center px-5 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 border-2 border-metal-2 hover:bg-bg-2 transition-all"
+              className="w-full sm:w-auto text-center px-5 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 border-2 border-metal-2 hover:bg-bg-2 transition-all"
             >
               JOIN FREE
             </Link>

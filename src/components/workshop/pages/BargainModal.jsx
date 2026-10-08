@@ -136,7 +136,7 @@ export function BargainModal({
       onClick={onClose}
     >
       <div
-        className="workshop-panel surface-metal-brushed rounded-2xl p-6 w-full max-w-md mx-4 relative"
+        className="workshop-panel surface-metal-brushed rounded-2xl p-5 sm:p-6 w-full max-w-md mx-3 sm:mx-4 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button

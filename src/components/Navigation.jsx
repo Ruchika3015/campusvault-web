@@ -125,18 +125,31 @@ export function Navigation() {
         </div>
 
         {/* Mobile toggle */}
-        <button
-          className="md:hidden grid place-items-center w-9 h-9 rounded-lg text-ink-0"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(107,118,137,0.4)' }}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="md:hidden flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="grid place-items-center w-8 h-8 rounded-lg text-ink-1 hover:text-amber transition-colors cursor-pointer"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(107,118,137,0.3)' }}
+            title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+            aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+          >
+            {theme === 'light' ? <Moon size={14} className="text-amber" /> : <Sun size={14} className="text-ink-1 hover:text-amber" />}
+          </button>
+
+          <button
+            className="grid place-items-center w-8 h-8 rounded-lg text-ink-0"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(107,118,137,0.4)' }}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={17} /> : <Menu size={17} />}
+          </button>
+        </div>
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden absolute top-full left-0 right-0 mt-2 surface-panel rounded-2xl p-4 flex flex-col gap-2 anim-reveal">
+          <div className="md:hidden absolute top-full left-0 right-0 mt-2 surface-panel rounded-2xl p-4 flex flex-col gap-2 anim-reveal border border-metal-1 shadow-2xl max-h-[80vh] overflow-y-auto">
             {LINKS.map((l) => (
               <a
                 key={l.label}

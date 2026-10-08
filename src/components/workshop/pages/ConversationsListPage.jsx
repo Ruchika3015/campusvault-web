@@ -562,19 +562,19 @@ export function ConversationsListPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-0 px-6 py-16 text-ink-0">
+    <div className="min-h-screen bg-bg-0 px-0 sm:px-2 py-6 sm:py-12 text-ink-0">
       <div className="mx-auto max-w-[1180px]">
 
         {/* HEADER */}
-        <div className="mb-3 font-technical text-[10px] uppercase tracking-[0.28em] text-mint-soft">
+        <div className="mb-3 font-technical text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-mint-soft">
           06 — ACCEPTED COLLABORATIONS
         </div>
 
-        <h1 className="text-5xl font-black uppercase tracking-[-0.04em] md:text-6xl">
+        <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-[-0.04em] md:text-6xl">
           Messages.
         </h1>
 
-        <p className="mt-5 max-w-2xl text-base leading-7 text-ink-2">
+        <p className="mt-3 sm:mt-5 max-w-2xl text-xs sm:text-base leading-relaxed text-ink-2">
           Conversations unlock only when a poster accepts your
           request. Every thread belongs to one gig.
         </p>
@@ -675,15 +675,17 @@ export function ConversationsListPage() {
                     flex
                     w-full
                     items-center
-                    gap-5
-                    rounded-[22px]
+                    gap-3
+                    sm:gap-5
+                    rounded-2xl
                     border
-                    px-5
-                    py-5
+                    px-3.5
+                    py-3.5
+                    sm:px-6
+                    sm:py-5
                     text-left
                     shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
                     transition
-                    md:px-6
                     ${
                       hasUnread
                         ? `
@@ -705,13 +707,16 @@ export function ConversationsListPage() {
                     className={`
                       relative
                       flex
-                      h-14
-                      w-14
+                      h-11
+                      w-11
+                      sm:h-14
+                      sm:w-14
                       shrink-0
                       items-center
                       justify-center
                       rounded-full
-                      text-lg
+                      text-sm
+                      sm:text-lg
                       font-black
                     `}
                     style={{

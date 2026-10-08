@@ -80,9 +80,9 @@ export function Footer() {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <DepthLayer depth={40}>
-          <div className="surface-metal-brushed metal-scratches rounded-3xl p-8 sm:p-12 relative mb-12">
+          <div className="surface-metal-brushed metal-scratches rounded-3xl p-6 sm:p-12 relative mb-12">
             <Rivet size={10} className="absolute top-3 left-3" />
             <Rivet size={10} className="absolute top-3 right-3" />
             <Rivet size={10} className="absolute bottom-3 left-3" />
@@ -105,11 +105,11 @@ export function Footer() {
                 </h3>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
                 <button
                   type="button"
                   onClick={handleFind}
-                  className="font-display text-sm uppercase tracking-tight px-5 py-3 rounded-xl text-bg-0 cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+                  className="font-display text-sm uppercase tracking-tight px-5 py-3 rounded-xl text-bg-0 cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber w-full sm:w-auto text-center"
                   style={{
                     background:
                       'linear-gradient(180deg, var(--amber-soft), var(--amber) 55%, var(--amber-deep))',
@@ -123,7 +123,7 @@ export function Footer() {
                 <button
                   type="button"
                   onClick={handlePost}
-                  className="font-display text-sm uppercase tracking-tight px-5 py-3 rounded-xl text-bg-0 cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+                  className="font-display text-sm uppercase tracking-tight px-5 py-3 rounded-xl text-bg-0 cursor-pointer transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint w-full sm:w-auto text-center"
                   style={{
                     background:
                       'linear-gradient(180deg, var(--mint-soft), var(--mint) 55%, var(--mint-deep))',
@@ -138,7 +138,7 @@ export function Footer() {
           </div>
         </DepthLayer>
 
-        <div className="grid md:grid-cols-[1.5fr_1fr_1fr] gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-8 sm:gap-10 mb-12">
           <div>
             <Link
               to="/"

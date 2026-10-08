@@ -114,10 +114,10 @@ export function ExchangeEngine() {
           <span className="h-px w-12 bg-metal-2" />
           <span className="font-technical text-[10px] text-ink-3">UNIT 02</span>
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-tight text-ink-0">
+        <h2 className="font-display text-2xl sm:text-5xl md:text-6xl tracking-tight text-ink-0">
           THE CAMPUSVAULT <span className="text-amber">EXCHANGE ENGINE</span>
         </h2>
-        <p className="mt-4 max-w-md mx-auto text-sm text-ink-2">
+        <p className="mt-4 max-w-md mx-auto text-xs sm:text-sm text-ink-2">
           A project requirement enters the engine. It parses skills, matches student talent, and guarantees secure delivery.
         </p>
       </ForegroundLayer>
@@ -129,7 +129,7 @@ export function ExchangeEngine() {
         onMouseLeave={() => setHovering(false)}
       >
         <DepthLayer depth={40}>
-          <div className="relative surface-metal-brushed metal-scratches rounded-3xl p-6 sm:p-10">
+          <div className="relative surface-metal-brushed metal-scratches rounded-3xl p-4 sm:p-10">
             {/* Rivets */}
             <Rivet size={11} className="absolute top-3 left-3" />
             <Rivet size={11} className="absolute top-3 right-3" />

@@ -1965,39 +1965,14 @@ function ProposalDetailCard({
 
 
       {/* =======================================================
-          ACCEPTED → ONLY MESSAGE
+          ACCEPTED → MESSAGE & PAYMENT
       ======================================================= */}
 
       {isAccepted && (
 
-        <div className="flex gap-2 mt-3 pt-3 border-t border-metal-1/40">
+        <div className="flex flex-col gap-3 mt-3 pt-3 border-t border-metal-1/40">
 
-          {conversationId ? (
-
-            <button
-              type="button"
-              onClick={
-                handleOpenConversation
-              }
-              disabled={
-                openingConversation
-              }
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-mint/15 text-mint font-technical text-xs font-semibold hover:bg-mint/25 transition-colors"
-            >
-              <MessageSquare
-                size={14}
-              />
-
-              {
-                openingConversation
-                  ? 'OPENING...'
-                  : 'MESSAGE'
-              }
-
-            </button>
-
-          ) : (
-
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={
@@ -2017,8 +1992,7 @@ function ProposalDetailCard({
                   : 'MESSAGE'
               }
             </button>
-
-          )}
+          </div>
 
           {conversationError && (
             <p className="w-full font-mono text-[9px] text-coral">
@@ -2026,39 +2000,37 @@ function ProposalDetailCard({
             </p>
           )}
 
+          <div className="pt-2 border-t border-metal-1/30 flex flex-col gap-2.5">
+            <label className="flex items-start gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={paymentConsent}
+                onChange={(event) =>
+                  setPaymentConsent(event.target.checked)
+                }
+                className="mt-0.5 accent-amber"
+              />
 
-<div className="mt-3 pt-3 border-t border-metal-1/40">
-  <label className="flex items-start gap-2 cursor-pointer">
-    <input
-      type="checkbox"
-      checked={paymentConsent}
-      onChange={(event) =>
-        setPaymentConsent(event.target.checked)
-      }
-      className="mt-0.5 accent-amber"
-    />
-
-    <span className="font-mono text-[10px] sm:text-xs text-ink-2 leading-relaxed">
-      I agree to the{' '}
-      <Link
-        to="/terms"
-        target="_blank"
-        className="text-amber hover:underline"
-      >
-        Terms & Conditions
-      </Link>{' '}
-      and{' '}
-      <Link
-        to="/refund-policy"
-        target="_blank"
-        className="text-amber hover:underline"
-      >
-        Refund & Cancellation Policy
-      </Link>
-      .
-    </span>
-  </label>
-</div>
+              <span className="font-mono text-[10px] sm:text-xs text-ink-2 leading-relaxed">
+                I agree to the{' '}
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  className="text-amber hover:underline"
+                >
+                  Terms & Conditions
+                </Link>{' '}
+                and{' '}
+                <Link
+                  to="/refund-policy"
+                  target="_blank"
+                  className="text-amber hover:underline"
+                >
+                  Refund & Cancellation Policy
+                </Link>
+                .
+              </span>
+            </label>
 
 
           <button
@@ -2197,6 +2169,8 @@ if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
             PAY ₹
             {formattedProposedAmount}
           </button>
+
+          </div>
 
         </div>
 

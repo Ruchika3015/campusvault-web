@@ -8,15 +8,15 @@ import { WorkshopNav } from '@/components/workshop/WorkshopNav';
  */
 export function DashboardLayout({ children }) {
   return (
-    <div className="min-h-screen bg-bg-0 text-ink-0 overflow-x-hidden">
+    <div className="min-h-screen bg-bg-0 text-ink-0 overflow-x-hidden w-full max-w-full">
       <div className="fixed inset-0 tech-diagram pointer-events-none opacity-40" />
       <div className="fixed inset-0 haze pointer-events-none" />
       <div className="fixed inset-0 depth-fog pointer-events-none" />
-      <div className="bg-lettering fixed">WORKSHOP</div>
+      <div className="bg-lettering fixed hidden sm:flex">WORKSHOP</div>
 
       <WorkshopNav />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <main className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-20 w-full">
         {children || <Outlet />}
       </main>
     </div>

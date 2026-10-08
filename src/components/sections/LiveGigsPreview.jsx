@@ -264,20 +264,22 @@ export function LiveGigsPreview() {
             </div>
 
             {/* Campus dropdown */}
-            <div className="flex items-center gap-2 rounded-xl bg-bg-1 border-2 border-metal-2 px-3 py-2 shadow-sm shrink-0">
-              <GraduationCap size={15} className="text-amber shrink-0" />
-              <select
-                value={selectedCollege}
-                onChange={(e) => setSelectedCollege(e.target.value)}
-                aria-label="Filter by Campus"
-                className="bg-transparent font-technical text-xs font-bold text-ink-0 uppercase tracking-wider outline-none cursor-pointer"
-              >
-                {availableColleges.map((col) => (
-                  <option key={col} value={col} className="bg-bg-1 text-ink-0">
-                    {col}
-                  </option>
-                ))}
-              </select>
+            <div className="flex items-center gap-2 rounded-xl bg-bg-1 border-2 border-metal-2 px-3 py-2 shadow-sm shrink-0 w-full sm:w-auto justify-between sm:justify-start">
+              <div className="flex items-center gap-2 flex-1 sm:flex-none">
+                <GraduationCap size={15} className="text-amber shrink-0" />
+                <select
+                  value={selectedCollege}
+                  onChange={(e) => setSelectedCollege(e.target.value)}
+                  aria-label="Filter by Campus"
+                  className="bg-transparent font-technical text-xs font-bold text-ink-0 uppercase tracking-wider outline-none cursor-pointer w-full"
+                >
+                  {availableColleges.map((col) => (
+                    <option key={col} value={col} className="bg-bg-1 text-ink-0">
+                      {col}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
@@ -367,16 +369,16 @@ export function LiveGigsPreview() {
           <p className="font-mono text-sm text-ink-1">
             Want to post your own requirement and hire talented campus peers?
           </p>
-          <div className="mt-4 flex items-center justify-center gap-3">
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               to="/signup"
-              className="px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow transition-all"
+              className="w-full sm:w-auto text-center px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow transition-all"
             >
               CREATE STUDENT ACCOUNT
             </Link>
             <Link
               to="/login"
-              className="px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 border-2 border-metal-2 hover:bg-bg-2 transition-all"
+              className="w-full sm:w-auto text-center px-6 py-3 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 border-2 border-metal-2 hover:bg-bg-2 transition-all"
             >
               LOG IN
             </Link>

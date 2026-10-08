@@ -259,42 +259,42 @@ export function Hero() {
 
 
       {/* ===== MAIN COMPOSITION — asymmetrical, left-aligned (UNCHANGED) ===== */}
-      <ForegroundLayer depth={60} className="relative z-20 min-h-screen flex items-center px-6 sm:px-12 lg:px-20 pt-28 pb-20 pointer-events-none">
+      <ForegroundLayer depth={60} className="relative z-20 min-h-screen flex items-center px-4 sm:px-12 lg:px-20 pt-24 sm:pt-28 pb-16 sm:pb-20 pointer-events-none">
         <div className="max-w-2xl pointer-events-auto">
           {/* technical label */}
-          <div className="flex items-center gap-3 mb-10 anim-reveal">
+          <div className="flex items-center gap-2 sm:gap-3 mb-8 sm:mb-10 anim-reveal flex-wrap">
             <LED color="mint" pulse size={7} />
-            <span className="font-technical text-[10px] text-ink-2">
+            <span className="font-technical text-[9px] sm:text-[10px] text-ink-2">
               01 — The Campus Gig Exchange
             </span>
-            <span className="h-px w-12 bg-metal-2" />
-            <span className="font-technical text-[10px] text-ink-3">STATUS: READY</span>
+            <span className="h-px w-8 sm:w-12 bg-metal-2" />
+            <span className="font-technical text-[9px] sm:text-[10px] text-ink-3">STATUS: READY</span>
           </div>
 
           {/* editorial statement — the visual anchor */}
           <h1 className="font-display text-ink-0 anim-reveal" style={{ animationDelay: '0.1s' }}>
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+            <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.98] sm:leading-[0.95] tracking-tight">
               Your problem.
             </span>
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-amber mt-1">
+            <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.98] sm:leading-[0.95] tracking-tight text-amber mt-1">
               Someone's skill.
             </span>
-            <span className="block font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-ink-1 mt-2 normal-case">
+            <span className="block font-editorial text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-ink-1 mt-2 normal-case">
               That's Campusvault.
             </span>
           </h1>
 
           {/* description */}
-          <p className="mt-8 max-w-md text-sm sm:text-base text-ink-2 leading-relaxed anim-reveal" style={{ animationDelay: '0.3s' }}>
+          <p className="mt-6 sm:mt-8 max-w-md text-xs sm:text-base text-ink-2 leading-relaxed anim-reveal" style={{ animationDelay: '0.3s' }}>
             A student-to-student exchange where a problem walks in and a skill walks out.
             Post what you need. Find who can do it. Get it done.
           </p>
 
           {/* CTA Buttons for guests */}
-          <div className="mt-8 flex flex-wrap items-center gap-3.5 anim-reveal" style={{ animationDelay: '0.4s' }}>
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 anim-reveal" style={{ animationDelay: '0.4s' }}>
             <a
               href="#live-gigs"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow-lg hover:shadow-amber/25 transition-all group cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-amber text-bg-0 hover:brightness-110 shadow-lg hover:shadow-amber/25 transition-all group cursor-pointer w-full sm:w-auto text-center"
             >
               <span>EXPLORE LIVE GIGS</span>
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -302,14 +302,14 @@ export function Hero() {
 
             <Link
               to="/signup"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 hover:text-ink-0 hover:bg-bg-2 border-2 border-metal-2 shadow-sm transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-technical text-xs font-bold uppercase tracking-wider bg-bg-1 text-ink-0 hover:text-ink-0 hover:bg-bg-2 border-2 border-metal-2 shadow-sm transition-all w-full sm:w-auto text-center"
             >
               <span>POST A REQUIREMENT</span>
             </Link>
           </div>
 
           {/* Trust Highlights */}
-          <div className="mt-6 flex flex-wrap items-center gap-y-2 gap-x-5 font-mono text-[11px] text-ink-2 anim-reveal" style={{ animationDelay: '0.5s' }}>
+          <div className="mt-6 flex flex-wrap items-center gap-y-2 gap-x-3 sm:gap-x-5 font-mono text-[10px] sm:text-[11px] text-ink-2 anim-reveal" style={{ animationDelay: '0.5s' }}>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-amber shadow-sm" />
               100% Student Verified

@@ -568,9 +568,9 @@ export function WorkshopNav() {
           DESKTOP / MAIN NAVBAR
       ============================================================ */}
 
-      <header className="sticky top-0 z-50 px-4 pt-4">
+      <header className="sticky top-0 z-50 px-2 sm:px-4 pt-2 sm:pt-4">
 
-        <nav className="surface-metal-brushed metal-scratches relative max-w-7xl mx-auto rounded-2xl px-4 sm:px-5 py-2.5 flex items-center justify-between gap-2">
+        <nav className="surface-metal-brushed metal-scratches relative max-w-7xl mx-auto rounded-2xl px-3 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between gap-2">
 
           {/* RIVETS */}
 
@@ -872,38 +872,49 @@ export function WorkshopNav() {
 
 
           {/* ========================================================
-              MOBILE TOGGLE
+              MOBILE NOTIFICATION & TOGGLE
           ======================================================== */}
 
-          <button
-            type="button"
-            className="lg:hidden grid place-items-center w-8 h-8 rounded-lg text-ink-0"
-            style={{
-              background:
-                'rgba(255,255,255,0.04)',
-              border:
-                '1px solid rgba(107,118,137,0.4)',
-            }}
-            onClick={() =>
-              setMobileOpen(
-                (value) =>
-                  !value
-              )
-            }
-            aria-label={
-              mobileOpen
-                ? 'Close'
-                : 'Open menu'
-            }
-          >
+          <div className="flex items-center gap-1.5 lg:hidden">
+            <button
+              type="button"
+              onClick={() => {
+                setNotifOpen((v) => !v);
+                setMobileOpen(false);
+              }}
+              className="relative grid place-items-center w-8 h-8 rounded-lg text-ink-1 hover:text-ink-0 transition-colors"
+              style={{
+                background: notifOpen ? 'rgba(34,197,94,0.14)' : 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(107,118,137,0.4)',
+              }}
+              aria-label="Notifications"
+            >
+              <Bell size={14} />
+              {unreadNotifs > 0 && (
+                <span
+                  className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full"
+                  style={{ background: 'var(--coral)' }}
+                  aria-label="Unread notifications"
+                />
+              )}
+            </button>
 
-            {mobileOpen ? (
-              <X size={16} />
-            ) : (
-              <Menu size={16} />
-            )}
-
-          </button>
+            <button
+              type="button"
+              className="grid place-items-center w-8 h-8 rounded-lg text-ink-0"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(107,118,137,0.4)',
+              }}
+              onClick={() => {
+                setMobileOpen((value) => !value);
+                setNotifOpen(false);
+              }}
+              aria-label={mobileOpen ? 'Close' : 'Open menu'}
+            >
+              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+          </div>
 
         </nav>
 
@@ -913,7 +924,7 @@ export function WorkshopNav() {
         ========================================================== */}
 
         {notifOpen && (
-          <div className="hidden lg:block absolute top-full right-20 mt-2 w-80 surface-panel rounded-2xl p-4 anim-reveal z-50 shadow-2xl">
+          <div className="absolute top-full left-2 right-2 sm:left-auto sm:right-10 lg:right-20 mt-2 w-auto sm:w-80 surface-panel rounded-2xl p-4 anim-reveal z-50 shadow-2xl border border-metal-1">
 
             <div className="flex items-center justify-between mb-3 pb-3 border-b border-metal-2/30">
 
@@ -1053,7 +1064,7 @@ export function WorkshopNav() {
         ========================================================== */}
 
         {mobileOpen && (
-          <div className="lg:hidden absolute top-full left-4 right-4 mt-2 surface-panel rounded-2xl p-4 flex flex-col gap-1 anim-reveal z-50">
+          <div className="lg:hidden absolute top-full left-2 right-2 sm:left-4 sm:right-4 mt-2 surface-panel rounded-2xl p-4 flex flex-col gap-1 anim-reveal z-50 max-h-[80vh] overflow-y-auto shadow-2xl border border-metal-1">
 
             <span className="font-technical text-[7px] text-ink-3 px-3 pt-1 pb-0.5">
               WORKSHOP

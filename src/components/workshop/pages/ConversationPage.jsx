@@ -996,7 +996,7 @@ export function ConversationPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-bg-0 px-6 py-16 text-ink-0">
+      <div className="min-h-screen bg-bg-0 px-3 py-10 text-ink-0 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-[1180px]">
 
           <div className="font-technical text-[10px] uppercase tracking-[0.28em] text-mint-soft">
@@ -1018,7 +1018,7 @@ export function ConversationPage() {
   ================================================================ */
 
   return (
-    <div className="min-h-screen bg-bg-0 px-6 py-12 text-ink-0 md:px-10">
+    <div className="min-h-screen bg-bg-0 px-2 py-4 text-ink-0 sm:px-6 sm:py-10 md:px-10">
 
       <div className="mx-auto max-w-[1180px]">
 
@@ -1043,10 +1043,10 @@ export function ConversationPage() {
             HEADER
         ========================================================= */}
 
-        <div className="mb-8 flex items-center gap-4">
+        <div className="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4">
 
           <div
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-black"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-base font-black sm:h-14 sm:w-14 sm:text-lg"
             style={{
               background:
                 'linear-gradient(135deg, var(--mint), var(--mint-deep))',
@@ -1059,11 +1059,11 @@ export function ConversationPage() {
 
           <div className="min-w-0">
 
-            <h1 className="truncate text-3xl font-black uppercase tracking-[-0.03em]">
+            <h1 className="truncate text-xl font-black uppercase tracking-[-0.03em] sm:text-3xl">
               {personName}
             </h1>
 
-            <p className="mt-1 truncate text-sm text-ink-2">
+            <p className="mt-0.5 truncate text-xs text-ink-2 sm:mt-1 sm:text-sm">
               {jugaadTitle}
             </p>
 
@@ -1099,11 +1099,11 @@ export function ConversationPage() {
                 MESSAGES
             ===================================================== */}
 
-            <div className="min-h-[480px] max-h-[600px] overflow-y-auto p-6">
+            <div className="min-h-[360px] max-h-[60vh] overflow-y-auto p-3 sm:min-h-[480px] sm:max-h-[600px] sm:p-6">
 
               {messages.length === 0 ? (
 
-                <div className="flex min-h-[430px] items-center justify-center text-center text-sm text-ink-2">
+                <div className="flex min-h-[360px] items-center justify-center text-center text-sm text-ink-2 sm:min-h-[430px]">
                   No messages yet. Start the conversation!
                 </div>
 
@@ -1287,10 +1287,10 @@ export function ConversationPage() {
                             <div
                               className={`
     group relative
-    max-w-[78%]
+    max-w-[85%] sm:max-w-[78%]
     rounded-2xl
-    px-4
-    py-3
+    px-3.5 sm:px-4
+    py-2.5 sm:py-3
     shadow-sm
     ${resolvedIsMine
                                   ? `
@@ -1333,7 +1333,7 @@ export function ConversationPage() {
                                 }}
                                 className={`
       absolute
-      -right-8
+      ${resolvedIsMine ? '-left-8' : '-right-8'}
       top-1
       flex
       h-7
@@ -1343,8 +1343,9 @@ export function ConversationPage() {
       rounded-full
       text-lg
       leading-none
-      opacity-0
+      opacity-70
       transition
+      sm:opacity-0
       group-hover:opacity-100
       focus:opacity-100
       ${resolvedIsMine
@@ -1807,7 +1808,7 @@ export function ConversationPage() {
                   ref={
                     emojiPickerRef
                   }
-                  className="absolute bottom-[76px] left-4 z-50"
+                  className="absolute bottom-[72px] left-2 z-50 w-[275px] max-w-[calc(100vw-32px)] sm:left-4 sm:w-[320px]"
                 >
 
                   <EmojiPicker
@@ -1815,8 +1816,8 @@ export function ConversationPage() {
                       handleEmojiClick
                     }
                     theme="dark"
-                    width={320}
-                    height={400}
+                    width="100%"
+                    height={360}
                     lazyLoadEmojis
                   />
 
@@ -1839,7 +1840,7 @@ export function ConversationPage() {
                     )
                   }
                   disabled={sending}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-metal-1/40 bg-bg-2 text-xl transition hover:bg-bg-3 disabled:opacity-40"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-metal-1/40 bg-bg-2 text-lg transition hover:bg-bg-3 disabled:opacity-40 sm:h-12 sm:w-12 sm:text-xl"
                   aria-label="Open emoji picker"
                   title="Emoji"
                 >
@@ -1864,7 +1865,7 @@ export function ConversationPage() {
                   placeholder="Write a message..."
                   disabled={sending}
                   rows={1}
-                  className="max-h-32 min-h-12 min-w-0 flex-1 resize-none rounded-xl border border-metal-1/40 bg-bg-2 px-4 py-3 text-sm leading-6 text-ink-0 outline-none placeholder:text-ink-3 focus:border-mint/60"
+                  className="max-h-32 min-h-11 min-w-0 flex-1 resize-none rounded-xl border border-metal-1/40 bg-bg-2 px-3.5 py-2.5 text-sm leading-6 text-ink-0 outline-none placeholder:text-ink-3 focus:border-mint/60 sm:min-h-12 sm:px-4 sm:py-3"
                 />
 
 
@@ -1878,7 +1879,7 @@ export function ConversationPage() {
                     sending ||
                     !text.trim()
                   }
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-mint text-xl text-bg-0 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-mint text-lg text-bg-0 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 sm:h-12 sm:w-12 sm:text-xl"
                   aria-label="Send message"
                   title="Send"
                 >
@@ -1898,7 +1899,7 @@ export function ConversationPage() {
               SIDE PANEL
           ======================================================= */}
 
-          <aside className="h-fit rounded-[22px] border border-metal-1/40 bg-bg-1 p-6">
+          <aside className="h-fit rounded-[22px] border border-metal-1/40 bg-bg-1 p-4 sm:p-6">
 
             <div className="font-technical text-[9px] uppercase tracking-[0.25em] text-mint">
               ● Connected

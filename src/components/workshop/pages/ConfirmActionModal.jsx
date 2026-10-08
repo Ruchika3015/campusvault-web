@@ -37,7 +37,7 @@ export function ConfirmActionModal({ variant, proposal, onConfirm, onClose }) {
   return (
     <div className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4" onClick={onClose}>
       <div
-        className="surface-metal-brushed rounded-2xl p-6 w-full max-w-md relative"
+        className="surface-metal-brushed rounded-2xl p-5 sm:p-6 w-full max-w-md mx-3 sm:mx-4 relative"
         onClick={(e) => e.stopPropagation()}
         style={{ border: '1px solid var(--metal-1)' }}
       >
@@ -49,12 +49,12 @@ export function ConfirmActionModal({ variant, proposal, onConfirm, onClose }) {
           <span className={`grid place-items-center w-11 h-11 rounded-xl shrink-0 ${cfg.iconBg} ${cfg.iconColor}`}>
             <Icon size={20} />
           </span>
-          <h3 className="font-display text-xl">{cfg.title}</h3>
+          <h3 className="font-display text-lg sm:text-xl">{cfg.title}</h3>
         </div>
 
         {/* Proposal summary */}
         {proposal && (
-          <div className="surface-panel rounded-xl p-4 mb-5 space-y-2">
+          <div className="surface-panel rounded-xl p-3.5 sm:p-4 mb-5 space-y-2">
             <div className="flex items-center gap-2">
               <User size={12} className="text-ink-2" />
               <span className="font-mono text-[10px] text-ink-2">HELPER</span>
@@ -62,22 +62,22 @@ export function ConfirmActionModal({ variant, proposal, onConfirm, onClose }) {
             </div>
             <div className="flex items-center gap-2">
               <span className="font-mono text-[10px] text-ink-2">JUGAAD</span>
-              <span className="font-mono text-[11px] text-ink-0 ml-auto truncate max-w-[200px]">{proposal.jugaadTitle}</span>
+              <span className="font-mono text-[11px] text-ink-0 ml-auto truncate max-w-[140px] sm:max-w-[200px]">{proposal.jugaadTitle}</span>
             </div>
             <div className="flex items-center gap-2">
               <IndianRupee size={12} className="text-ink-2" />
               <span className="font-mono text-[10px] text-ink-2">PRICE</span>
-              <span className="font-display text-lg text-amber ml-auto">₹{proposal.proposedPrice}</span>
+              <span className="font-display text-base sm:text-lg text-amber ml-auto">₹{proposal.proposedPrice}</span>
             </div>
           </div>
         )}
 
         <p className="font-mono text-[11px] text-ink-1 leading-relaxed mb-6">{cfg.message}</p>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
           <button
             onClick={onClose}
-            className="machine-control machine-control--ghost flex-1 justify-center"
+            className="machine-control machine-control--ghost w-full sm:flex-1 justify-center"
             style={{ padding: '13px 18px' }}
           >
             <span className="ctrl-led" />
@@ -85,7 +85,7 @@ export function ConfirmActionModal({ variant, proposal, onConfirm, onClose }) {
           </button>
           <button
             onClick={onConfirm}
-            className={`flex-[1.5] flex items-center justify-center gap-2 rounded-lg font-technical text-[9px] transition-colors ${cfg.confirmClass}`}
+            className={`w-full sm:flex-[1.5] flex items-center justify-center gap-2 rounded-lg font-technical text-[9px] transition-colors ${cfg.confirmClass}`}
             style={{ padding: '13px 18px' }}
           >
             <Icon size={14} />

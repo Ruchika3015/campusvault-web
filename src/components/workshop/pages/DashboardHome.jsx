@@ -817,7 +817,7 @@ export function DashboardHome() {
           </div>
 
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl tracking-tight break-words">
 
             <span className="block">
               WELCOME,
@@ -841,7 +841,7 @@ export function DashboardHome() {
 
         {/* User badge */}
         <div
-          className="surface-metal-heavy rounded-2xl p-5 relative min-w-[240px] border border-metal-1"
+          className="surface-metal-heavy rounded-2xl p-4 sm:p-5 relative w-full sm:w-auto sm:min-w-[240px] border border-metal-1"
         >
 
           <Rivet

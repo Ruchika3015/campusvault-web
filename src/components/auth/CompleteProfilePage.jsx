@@ -112,18 +112,18 @@ export function CompleteProfilePage() {
       />
 
       {/* ── Card ──────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full max-w-md px-4 sm:px-8 py-12">
+      <div className="relative z-10 w-full max-w-md px-3.5 sm:px-8 py-8 sm:py-12">
         <div className="w-full anim-reveal">
 
           {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
+          <div className="mb-6 sm:mb-8">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <LED color="amber" pulse size={6} />
               <span className="font-technical text-[9px] text-ink-2 tracking-widest">
                 03 — PROFILE INITIALISATION
               </span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl tracking-tight text-ink-0 mb-2">
+            <h1 className="font-display text-2xl sm:text-4xl tracking-tight text-ink-0 mb-2">
               SET UP YOUR <span className="text-amber">VAULT</span>
             </h1>
             <p className="text-xs text-ink-2">
@@ -132,7 +132,7 @@ export function CompleteProfilePage() {
           </div>
 
           {/* Terminal card */}
-          <div className="relative surface-metal-brushed metal-scratches rounded-2xl p-6 sm:p-8">
+          <div className="relative surface-metal-brushed metal-scratches rounded-2xl p-5 sm:p-8">
             <Rivet size={9} className="absolute top-3 left-3" />
             <Rivet size={9} className="absolute top-3 right-3" />
             <Rivet size={9} className="absolute bottom-3 left-3" />

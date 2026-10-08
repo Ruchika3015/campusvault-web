@@ -1562,7 +1562,7 @@ function OpportunityCard({
 
   return (
     <article
-      className="surface-metal-brushed rounded-2xl p-5 relative flex flex-col justify-between h-[320px] transition-all duration-200 hover:border-amber/50 hover:shadow-lg group"
+      className="surface-metal-brushed rounded-2xl p-4 sm:p-5 relative flex flex-col justify-between min-h-[300px] h-full sm:min-h-[320px] transition-all duration-200 hover:border-amber/50 hover:shadow-lg group"
       style={{
         border:
           `1px solid color-mix(in srgb, var(--${color}) 22%, transparent)`,
@@ -1709,26 +1709,28 @@ function OpportunityCard({
         )}
 
         {/* FOOTER ROW */}
-        <div className="mt-3 pt-2.5 border-t border-metal-1/40 flex items-center gap-2">
-          {/* Poster avatar */}
-          <span className="grid place-items-center w-7 h-7 rounded-full bg-amber text-bg-0 font-display text-xs font-bold shrink-0">
-            {posterInitials}
-          </span>
+        <div className="mt-3 pt-2.5 border-t border-metal-1/40 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            {/* Poster avatar */}
+            <span className="grid place-items-center w-7 h-7 rounded-full bg-amber text-bg-0 font-display text-xs font-bold shrink-0">
+              {posterInitials}
+            </span>
 
-          {/* POSTER NAME */}
-          <span className="font-mono text-xs sm:text-sm text-ink-1 font-medium flex-1 truncate">
-            {posterName}
-          </span>
+            {/* POSTER NAME */}
+            <span className="font-mono text-xs sm:text-sm text-ink-1 font-medium truncate max-w-[100px] sm:max-w-none">
+              {posterName}
+            </span>
 
-          {/* NOT INTERESTED */}
-          <button
-            type="button"
-            onClick={onHide}
-            aria-label="Not interested"
-            className="grid place-items-center w-8 h-8 rounded-lg text-ink-3 hover:text-coral hover:bg-coral/10 shrink-0"
-          >
-            <X size={14} />
-          </button>
+            {/* NOT INTERESTED */}
+            <button
+              type="button"
+              onClick={onHide}
+              aria-label="Not interested"
+              className="grid place-items-center w-7 h-7 rounded-lg text-ink-3 hover:text-coral hover:bg-coral/10 shrink-0"
+            >
+              <X size={14} />
+            </button>
+          </div>
 
           {/* ACTIONS */}
           {deadlinePassed ? (
@@ -1739,14 +1741,14 @@ function OpportunityCard({
               DEADLINE PASSED
             </span>
           ) : (
-            <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center gap-1.5 shrink-0 ml-auto">
               <button
                 type="button"
                 onClick={onBargain}
                 disabled={proposalSent}
-                className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 font-technical text-xs sm:text-sm font-semibold text-amber border border-amber/30 hover:bg-amber/10 transition-colors disabled:opacity-40"
+                className="flex items-center gap-1 rounded-lg px-2 sm:px-2.5 py-1.5 font-technical text-xs sm:text-sm font-semibold text-amber border border-amber/30 hover:bg-amber/10 transition-colors disabled:opacity-40"
               >
-                <HandCoins size={14} />
+                <HandCoins size={13} />
                 BARGAIN
               </button>
 
@@ -1754,7 +1756,7 @@ function OpportunityCard({
                 type="button"
                 onClick={onInterest}
                 disabled={proposalSent}
-                className={`flex items-center gap-1 rounded-lg px-3 py-1.5 font-technical text-xs sm:text-sm font-semibold transition-colors ${
+                className={`flex items-center gap-1 rounded-lg px-2.5 sm:px-3 py-1.5 font-technical text-xs sm:text-sm font-semibold transition-colors ${
                   proposalSent
                     ? 'bg-mint/15 text-mint border border-mint/30'
                     : 'bg-amber text-bg-0 hover:bg-amber-soft'
@@ -1762,7 +1764,7 @@ function OpportunityCard({
               >
                 {proposalSent ? (
                   <CheckCircle2
-                    size={14}
+                    size={13}
                   />
                 ) : (
                   <span className="text-xs">
@@ -1928,27 +1930,27 @@ function GigDetailModal({
         </div>
 
         {/* MODAL ACTIONS */}
-        <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-metal-1/40">
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-4 border-t border-metal-1/40">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-lg font-technical text-xs font-semibold text-ink-2 hover:text-ink-0 hover:bg-white/5 transition-colors"
+            className="w-full sm:w-auto text-center px-4 py-2.5 rounded-lg font-technical text-xs font-semibold text-ink-2 hover:text-ink-0 hover:bg-white/5 transition-colors"
           >
             CLOSE
           </button>
 
           {deadlinePassed ? (
-            <span className="flex items-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs font-semibold text-coral border border-coral/30">
+            <span className="flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs font-semibold text-coral border border-coral/30">
               <Clock size={15} />
               DEADLINE PASSED
             </span>
           ) : (
-            <>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={onBargain}
                 disabled={proposalSent}
-                className="flex items-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs sm:text-sm font-semibold text-amber border border-amber/30 hover:bg-amber/10 transition-colors disabled:opacity-40"
+                className="flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs sm:text-sm font-semibold text-amber border border-amber/30 hover:bg-amber/10 transition-colors disabled:opacity-40"
               >
                 <HandCoins size={16} />
                 BARGAIN
@@ -1958,7 +1960,7 @@ function GigDetailModal({
                 type="button"
                 onClick={onInterest}
                 disabled={proposalSent}
-                className={`flex items-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs sm:text-sm font-semibold transition-colors ${
+                className={`flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 font-technical text-xs sm:text-sm font-semibold transition-colors ${
                   proposalSent
                     ? 'bg-mint/15 text-mint border border-mint/30'
                     : 'bg-amber text-bg-0 hover:bg-amber-soft'
@@ -1976,7 +1978,7 @@ function GigDetailModal({
                   </>
                 )}
               </button>
-            </>
+            </div>
           )}
         </div>
       </div>
