@@ -2073,16 +2073,7 @@ function ProposalDetailCard({
     }
 
     // Create a Razorpay order using your backend.
-    const response = await api.createPaymentOrder({
-      amount,
-      customerName:
-        profile?.name ||
-        profile?.fullName ||
-        profile?.username ||
-        'CampusVault User',
-      customerEmail,
-      customerPhone: cleanPhone,
-    });
+    const response = await api.createRazorpayOrder(item?.id);
 
     const order = response?.data || response?.order || response;
 
@@ -2113,7 +2104,7 @@ function ProposalDetailCard({
     const options = {
       key: keyId,
       order_id: orderId,
-      amount: order?.amount ?? Math.round(amount * 100),
+      amount: order?.amountPaise ?? order?.amount ?? Math.round(amount * 100),
       currency: order?.currency || 'INR',
       name: 'CampusVault',
       description: 'Jugaad payment',
@@ -2138,13 +2129,15 @@ function ProposalDetailCard({
 
           const result = verification?.data || verification;
 
-          if (result?.success === true || result?.verified === true) {
-            window.alert('Payment successful!');
-          } else {
-            window.alert(
-              'Payment verification failed. Please contact support.'
-            );
-          }
+          if (result?.status === 'PAID') {
+  window.alert('Payment successful!');
+} else {
+  window.alert(
+    `Payment verification completed, but the final status is ${
+      result?.status || 'PENDING'
+    }. Please check the payment status before trying again.`
+  );
+}
         } catch (error) {
           console.error('Razorpay verification error:', error);
           window.alert(
