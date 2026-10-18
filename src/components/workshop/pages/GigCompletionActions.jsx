@@ -13,6 +13,7 @@ export default function GigCompletionActions({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [receivedOtp, setReceivedOtp] = useState('');
+  const [showSubmitForm, setShowSubmitForm] = useState(false);
 
   const normalizedStatus = String(status || '')
     .toLowerCase()
@@ -105,49 +106,87 @@ export default function GigCompletionActions({
     }
   }
 
+  const darkInputClass =
+    'mt-1 w-full rounded-lg border border-[#5b5146] bg-[#241f1c] p-3 text-[#f0e9df] placeholder:text-[#9b9da5] outline-none transition focus:border-[#20c96b] focus:ring-1 focus:ring-[#20c96b]';
+
   return (
-    <section className="mt-5 rounded-xl border border-amber/30 p-4">
-      <h3 className="mb-3 font-display text-lg">
-        {canSubmitWork ? 'SUBMIT YOUR WORK' : 'COMPLETE GIG'}
-      </h3>
-
+    <section className="mt-5 rounded-xl border border-[#5b5146] bg-[#292522] p-4 sm:p-5">
       {canSubmitWork && (
-        <form onSubmit={handleSubmitWork} className="space-y-3">
-          <label className="block text-sm">
-            Work / deliverable URL *
-            <input
-              type="url"
-              value={url}
-              onChange={(event) => setUrl(event.target.value)}
-              placeholder="https://drive.google.com/..."
-              required
-              className="mt-1 w-full rounded-lg border p-3"
-            />
-          </label>
+        <div className="space-y-4">
+          {!showSubmitForm ? (
+            <button
+              type="button"
+              onClick={() => {
+                setShowSubmitForm(true);
+                setMessage('');
+              }}
+              className="machine-control machine-control--primary"
+            >
+              SUBMIT WORK
+            </button>
+          ) : (
+            <form
+              onSubmit={handleSubmitWork}
+              className="space-y-4 rounded-xl border border-[#5b5146] bg-[#292522] p-4 sm:p-5"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-display text-lg font-bold text-[#f0e9df]">
+                  SUBMIT YOUR WORK
+                </h3>
 
-          <label className="block text-sm">
-            Notes (optional)
-            <textarea
-              value={note}
-              onChange={(event) => setNote(event.target.value)}
-              placeholder="Add handover notes..."
-              rows={3}
-              className="mt-1 w-full rounded-lg border p-3"
-            />
-          </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowSubmitForm(false);
+                    setMessage('');
+                  }}
+                  className="text-xs font-mono tracking-wider text-[#b8aa9a] transition hover:text-[#f0e9df]"
+                >
+                  CANCEL
+                </button>
+              </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="machine-control machine-control--primary"
-          >
-            {loading ? 'SUBMITTING...' : 'SUBMIT WORK'}
-          </button>
-        </form>
+              <label className="block text-sm font-medium text-[#e8e0d6]">
+                Work / deliverable URL *
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(event) => setUrl(event.target.value)}
+                  placeholder="https://drive.google.com/..."
+                  required
+                  className={darkInputClass}
+                />
+              </label>
+
+              <label className="block text-sm font-medium text-[#e8e0d6]">
+                Notes (optional)
+                <textarea
+                  value={note}
+                  onChange={(event) => setNote(event.target.value)}
+                  placeholder="Add handover notes..."
+                  rows={3}
+                  className={`${darkInputClass} resize-y`}
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="machine-control machine-control--primary"
+              >
+                {loading ? 'SUBMITTING...' : 'SUBMIT WORK'}
+              </button>
+            </form>
+          )}
+        </div>
       )}
 
       {canComplete && (
-        <div className="space-y-3">
+        <div className="space-y-4">
+          <h3 className="font-display text-lg font-bold text-[#f0e9df]">
+            COMPLETE GIG
+          </h3>
+
           <button
             type="button"
             disabled={loading}
@@ -158,13 +197,14 @@ export default function GigCompletionActions({
           </button>
 
           {receivedOtp && (
-            <p className="text-sm">
-              OTP returned by the backend: <strong>{receivedOtp}</strong>
+            <p className="text-sm text-[#e8e0d6]">
+              OTP returned by the backend:{' '}
+              <strong>{receivedOtp}</strong>
             </p>
           )}
 
           <form onSubmit={handleComplete} className="space-y-3">
-            <label className="block text-sm">
+            <label className="block text-sm font-medium text-[#e8e0d6]">
               Completion OTP
               <input
                 type="text"
@@ -172,7 +212,7 @@ export default function GigCompletionActions({
                 onChange={(event) => setOtp(event.target.value)}
                 placeholder="Enter OTP"
                 required
-                className="mt-1 w-full rounded-lg border p-3"
+                className={darkInputClass}
               />
             </label>
 
@@ -188,7 +228,7 @@ export default function GigCompletionActions({
       )}
 
       {message && (
-        <p role="status" className="mt-3 text-sm">
+        <p role="status" className="mt-3 text-sm text-[#e8e0d6]">
           {message}
         </p>
       )}
