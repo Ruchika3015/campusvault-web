@@ -684,66 +684,40 @@ getCertifications: async () => {
 
 addCertification: async (payload) => {
   const user = await api.getProfile();
+  const currentCertifications = Array.isArray(user?.certifications)
+    ? [...user.certifications]
+    : [];
 
-  const currentCertifications =
-    Array.isArray(user?.certifications)
-      ? [...user.certifications]
-      : [];
-
+  // Do not add a made-up "id" here. MongoDB creates the ID.
   const certification = {
-  id: `cert-${Date.now()}`,
-  title: String(
-    payload?.title || ""
-  ).trim(),
-  organization: String(
-    payload?.organization || ""
-  ).trim(),
-  date: String(
-    payload?.date || ""
-  ).trim(),
-  url: String(
-    payload?.url || ""
-  ).trim(),
-};
+    title: String(payload?.title || '').trim(),
+    organization: String(payload?.organization || '').trim(),
+    date: String(payload?.date || '').trim(),
+    url: String(payload?.url || '').trim(),
+  };
+
   if (!certification.title) {
-    throw new Error(
-      "Certification title is required."
-    );
+    throw new Error('Certification title is required.');
   }
 
-  const nextCertifications = [
-    ...currentCertifications,
-    certification,
-  ];
+  const updatedUser = await api.updateProfile({
+    certifications: [...currentCertifications, certification],
+  });
 
-  const updatedUser =
-    await api.updateProfile({
-      certifications:
-        nextCertifications,
-    });
+  const savedCertifications = Array.isArray(updatedUser?.certifications)
+    ? updatedUser.certifications
+    : [];
+  const savedCertification = savedCertifications[savedCertifications.length - 1];
 
-  const savedCertifications =
-    Array.isArray(
-      updatedUser?.certifications
-    )
-      ? updatedUser.certifications
-      : nextCertifications;
-
-  const savedCertification =
-    savedCertifications[
-      savedCertifications.length - 1
-    ];
+  if (!savedCertification?._id && !savedCertification?.id) {
+    throw new Error('The server did not return the saved certification ID.');
+  }
 
   return {
     data: {
       ...savedCertification,
-      id:
-        savedCertification?.id ||
-savedCertification?._id ||
-certification.id,
-      url:
-        savedCertification?.url ||
-        "",
+      id: String(savedCertification.id || savedCertification._id),
+      url: savedCertification.url || '',
     },
   };
 },
