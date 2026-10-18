@@ -1,3 +1,4 @@
+import GigCompletionActions from './GigCompletionActions';
 import { useState, useEffect, useCallback } from 'react';
 import {
   Link,
@@ -1386,8 +1387,13 @@ function Detail({
           </div>
 
         </div>
-      </section>
+            </section>
 
+      <GigCompletionActions
+        gigId={item.id}
+        role="owner"
+        status={item.status}
+      />
 
       <div className="grid lg:grid-cols-[.75fr_1.25fr] gap-5">
 
@@ -2037,131 +2043,139 @@ function ProposalDetailCard({
   type="button"
   disabled={!paymentConsent}
             onClick={async () => {
-              try {
-                const profileResponse = await api.getProfile();
-                const profile =
-                  profileResponse?.data ||
-                  profileResponse?.user ||
-                  profileResponse ||
-                  {};
+  try {
+    const profileResponse = await api.getProfile();
+    const profile =
+      profileResponse?.data ||
+      profileResponse?.user ||
+      profileResponse ||
+      {};
 
-                const amount = Number(proposedAmount);
+    const amount = Number(proposedAmount);
 
-                if (!Number.isFinite(amount) || amount <= 0) {
-                  throw new Error('Invalid payment amount');
-                }
+    if (!Number.isFinite(amount) || amount <= 0) {
+      throw new Error('Invalid payment amount');
+    }
 
-                const orderId = `campusvault_${Date.now()}`;
-                const customerId = String(
-                  profile?._id ||
-                  profile?.id ||
-                  `customer_${Date.now()}`
-                );
-                const customerName =
-                  profile?.name ||
-                  profile?.fullName ||
-                  profile?.username ||
-                  'CampusVault User';
-                const customerEmail =
-                  profile?.email ||
-                  profile?.emailAddress;
-                const customerPhone =
-  profile?.number ||
-  profile?.phone ||
-  profile?.phoneNumber ||
-  profile?.mobile;
+    const customerEmail = profile?.email || profile?.emailAddress;
+    const customerPhone =
+      profile?.number ||
+      profile?.phone ||
+      profile?.phoneNumber ||
+      profile?.mobile;
 
-                if (!customerEmail) {
-                  throw new Error('Your profile email is required for payment');
-                }
+    if (!customerEmail) {
+      throw new Error('Your profile email is required for payment');
+    }
 
-                if (!customerPhone) {
-  throw new Error(
-    'Please add your phone number in your profile before making a payment'
+    const cleanPhone = String(customerPhone || '')
+      .replace(/\s+/g, '')
+      .replace(/^(\+91|91)/, '');
+
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      throw new Error(
+        'Please add a valid 10-digit Indian mobile number to your profile'
+      );
+    }
+
+    // Create a Razorpay order using your backend.
+    const response = await api.createRazorpayOrder(item?.id);
+
+    const order = response?.data || response?.order || response;
+
+    const orderId = order?.id || order?.orderId;
+    const keyId =
+      order?.keyId ||
+      order?.key_id ||
+      import.meta.env.VITE_RAZORPAY_KEY_ID;
+
+    if (!orderId || !keyId) {
+      throw new Error(
+        'Razorpay order or public key is missing. Check the backend response.'
+      );
+    }
+
+    // Load Razorpay Checkout if it isn't already loaded.
+    if (!window.Razorpay) {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = resolve;
+        script.onerror = () =>
+          reject(new Error('Unable to load Razorpay Checkout'));
+        document.body.appendChild(script);
+      });
+    }
+
+    const options = {
+      key: keyId,
+      order_id: orderId,
+      amount: order?.amountPaise ?? order?.amount ?? Math.round(amount * 100),
+      currency: order?.currency || 'INR',
+      name: 'CampusVault',
+      description: 'Jugaad payment',
+      prefill: {
+        name:
+          profile?.name ||
+          profile?.fullName ||
+          profile?.username ||
+          '',
+        email: customerEmail,
+        contact: cleanPhone,
+      },
+
+      handler: async (paymentResponse) => {
+        try {
+          // Verify the payment on the backend.
+          const verification = await api.verifyRazorpayPayment({
+            razorpay_order_id: paymentResponse.razorpay_order_id,
+            razorpay_payment_id: paymentResponse.razorpay_payment_id,
+            razorpay_signature: paymentResponse.razorpay_signature,
+          });
+
+          const result = verification?.data || verification;
+
+          if (result?.status === 'PAID') {
+  window.alert('Payment successful!');
+} else {
+  window.alert(
+    `Payment verification completed, but the final status is ${
+      result?.status || 'PENDING'
+    }. Please check the payment status before trying again.`
   );
 }
-               
-const cleanPhone = String(customerPhone)
-  .replace(/\s+/g, '')
-  .replace(/^(\+91|91)/, '');
+        } catch (error) {
+          console.error('Razorpay verification error:', error);
+          window.alert(
+            'Payment verification could not be completed. Please contact support before retrying.'
+          );
+        }
+      },
 
-if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
-  throw new Error(
-    'Please enter a valid 10-digit Indian mobile number in your profile'
-  );
-}
-                const response = await api.createPaymentOrder({
-  orderId,
-  amount,
-  customerId,
-  customerName,
-  customerEmail,
-  customerPhone: cleanPhone,
-});
+      modal: {
+        ondismiss: () => {
+          console.log('Razorpay checkout closed');
+        },
+      },
+    };
 
-                const paymentSessionId =
-                  response?.data?.payment_session_id ||
-                  response?.payment_session_id;
+    const checkout = new window.Razorpay(options);
 
-                if (!paymentSessionId) {
-                  throw new Error('Cashfree payment session was not created');
-                }
+    checkout.on('payment.failed', (event) => {
+      console.error('Razorpay payment failed:', event.error);
+      window.alert(
+        event.error?.description || 'Payment failed. Please try again.'
+      );
+    });
 
-                if (!window.Cashfree) {
-                  await new Promise((resolve, reject) => {
-                    const existingScript = document.querySelector(
-                      'script[src=\"https://sdk.cashfree.com/js/v3/cashfree.js\"]'
-                    );
-
-                    if (existingScript) {
-                      existingScript.addEventListener('load', resolve, { once: true });
-                      existingScript.addEventListener('error', reject, { once: true });
-                      return;
-                    }
-
-                    const script = document.createElement('script');
-                    script.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
-                    script.async = true;
-                    script.onload = resolve;
-                    script.onerror = reject;
-                    document.body.appendChild(script);
-                  });
-                }
-
-                if (!window.Cashfree) {
-                  throw new Error('Cashfree SDK could not be loaded');
-                }
-
-                const cashfree = window.Cashfree({ mode: 'sandbox' });
-
-                await cashfree.checkout({
-                  paymentSessionId,
-                  redirectTarget: '_modal',
-                });
-
-                const statusResponse =
-  await api.getPaymentOrderStatus(orderId);
-
-                const paymentStatus =
-                  statusResponse?.data ||
-                  statusResponse ||
-                  {};
-
-                if (paymentStatus?.order_status === 'PAID') {
-                  window.alert('Payment successful! ✅');
-                } else {
-                  window.alert(
-                    `Payment status: ${paymentStatus?.order_status || 'UNKNOWN'}`
-                  );
-                }
-              } catch (error) {
-                console.error('Cashfree payment error:', error);
-                window.alert(
-                  error?.message ||
-                  'Payment could not be started. Please try again.'
-                );
-              }
-            }}
+    checkout.open();
+  } catch (error) {
+    console.error('Razorpay payment error:', error);
+    window.alert(
+      error?.message || 'Payment could not be started. Please try again.'
+    );
+  }
+}}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-mint/15 text-mint font-technical text-xs font-semibold hover:bg-mint/25 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <HandCoins size={14} />

@@ -844,15 +844,31 @@ deleteCertification: async (
 // Backend: /api/payment
 // ================================================================
 
-createPaymentOrder: (payload) =>
-  apiRequest('/api/payment/create-order', {
+getRazorpayConfig: () =>
+  apiRequest('/api/payments/razorpay/config', {
+    headers: {
+      'X-CampusVault-Payment-Flow': 'manual-v1',
+    },
+  }),
+
+createRazorpayOrder: (gigId) =>
+  apiRequest('/api/payments/razorpay/orders', {
+    method: 'POST',
+    headers: {
+      'X-CampusVault-Payment-Flow': 'manual-v1',
+    },
+    body: JSON.stringify({ gigId }),
+  }),
+
+verifyRazorpayPayment: (payload) =>
+  apiRequest('/api/payments/razorpay/verify', {
     method: 'POST',
     body: JSON.stringify(payload),
   }),
 
-getPaymentOrderStatus: (orderId) =>
+getRazorpayOrderStatus: (orderId) =>
   apiRequest(
-    `/api/payment/order-status/${encodeURIComponent(orderId)}`
+    `/api/payments/razorpay/orders/${encodeURIComponent(orderId)}`
   ),
   
   createJugaad: (payload) => {
