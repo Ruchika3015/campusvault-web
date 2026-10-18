@@ -518,8 +518,8 @@ addProject: async (payload) => {
     ? [...user.projects]
     : [];
 
+  // Don't provide an ID here. MongoDB generates it.
   const project = {
-    id: `project-${Date.now()}`,
     name: String(payload?.name || "").trim(),
     description: String(payload?.description || "").trim(),
     technologies: Array.isArray(payload?.technologies)
@@ -533,10 +533,7 @@ addProject: async (payload) => {
     throw new Error("Project name is required.");
   }
 
-  const nextProjects = [
-    ...currentProjects,
-    project,
-  ];
+  const nextProjects = [...currentProjects, project];
 
   const updatedUser = await api.updateProfile({
     projects: nextProjects,
@@ -546,16 +543,12 @@ addProject: async (payload) => {
     ? updatedUser.projects
     : nextProjects;
 
-  const savedProject =
-    savedProjects[savedProjects.length - 1];
+  const savedProject = savedProjects[savedProjects.length - 1];
 
   return {
     data: {
       ...savedProject,
-      id:
-        savedProject?.id ||
-        savedProject?._id ||
-        project.id,
+      id: savedProject?.id || savedProject?._id,
     },
   };
 },
