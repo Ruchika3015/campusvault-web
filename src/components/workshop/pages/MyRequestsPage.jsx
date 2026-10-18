@@ -1,3 +1,4 @@
+import GigCompletionActions from './GigCompletionActions';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -1564,9 +1565,19 @@ function RequestRow({
 
             )}
 
-        </div>
+                </div>
 
       )}
+
+      <GigCompletionActions
+        gigId={getGigId(request)}
+        role="worker"
+        status={
+          request?.gig?.status ??
+          request?.gigStatus ??
+          request?.gig_status
+        }
+      />
 
     </article>
 

@@ -1,3 +1,4 @@
+import GigCompletionActions from './GigCompletionActions';
 import { useState, useEffect, useCallback } from 'react';
 import {
   Link,
@@ -1386,8 +1387,13 @@ function Detail({
           </div>
 
         </div>
-      </section>
+            </section>
 
+      <GigCompletionActions
+        gigId={item.id}
+        role="owner"
+        status={item.status}
+      />
 
       <div className="grid lg:grid-cols-[.75fr_1.25fr] gap-5">
 
